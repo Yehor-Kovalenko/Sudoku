@@ -1,0 +1,12 @@
+.grid {
+    -fx-border-color: #a16100;
+    -fx-alignment: center;
+    -fx-border-insets: 0;
+    -fx-text-alignment: center;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe Script";
+    -fx-hgap: 0;
+    -fx-fill-height: true;
+    -fx-fill-width: true;
+    -fx-vgap: 0;
+}

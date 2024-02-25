@@ -1,0 +1,19 @@
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+.menu-button {
+    -fx-background-color: #fca503;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-font-weight: bold;
+    -fx-border-color: #fcdb03;
+    -fx-font-family: "Segoe Script";
+    -fx-font-size: 20;
+}
+.menu-button:hover {
+    -fx-background-color: #a16100;
+}
