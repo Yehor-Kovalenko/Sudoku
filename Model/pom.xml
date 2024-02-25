@@ -13,18 +13,12 @@
         <version>2.0-SNAPSHOT</version>
     </parent>
 
-    <description>Projekt grupy laboratoryjnej an_pn_1400_03</description>
+    <description>Project SudokuGame</description>
 
     <developers>
         <developer>
-            <id>248678</id>
-            <name>Andrei Pivavarau</name>
-            <email>248678@edu.p.lodz.pl</email>
-        </developer>
-        <developer>
-            <id>248677</id>
             <name>Yehor Kovalenko</name>
-            <email>248677@edu.p.lodz.pl</email>
+            <email>ka.egor.ka@gmail.com</email>
         </developer>
     </developers>
 
@@ -32,7 +26,7 @@
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-            <comments>Copyright 2023 Yehor Kovalenko and Andrei Pivavarau
+            <comments>Copyright 2023  Yehor Kovalenko
 
                 Licensed under the Apache License, Version 2.0 (the "License");
                 you may not use this file except in compliance with the License.

@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Yehor Kovalenko and Andrei Pivavarau
+ * Copyright 2023  Yehor Kovalenko
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
@@ -23,15 +23,29 @@ import java.util.Random;
 
 import static org.apache.logging.log4j.Level.ERROR;
 
+/**
+ * The concrete implementation of the "Solver" interface,
+ * its purpose is to solve the Sudoku (SudokuBoard)
+ */
 public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
     private static final Logger logger = LogManager.getLogger();
 
+    /**
+     * Publicly accessible method overriden from the super interface "Solver", solves the sudoku
+     * @param board - "SudokuBoard" object that needs to be solved
+     */
     @Override
     public void solve(SudokuBoard board) {
         this.fill(board,0,0);
     }
 
-    //method to check if there is already the number in the row, column or 3x3 block
+    /**
+     * Private method to check if there is already the number in the row, column or 3x3 block
+     * @param board - SudokuBoard object that needs to be checked
+     * @param row - index of the board's row where the checking needs to be performed
+     * @param col - index of the board's column where the checking needs to be performed
+     * @return true if the board is valid (no duplicates) and false otherwise
+     */
     private boolean isValid(SudokuBoard board, int row, int col) {
         //checking the row and column
         for (int i = 0; i < 9; i++) {
@@ -56,6 +70,14 @@ public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
         return true;
     }
 
+    /**
+     * Private method that actually solves the Sudoku using recursion, implements the BackTracking Algorithm
+     * @param board - SudokuBoard object that needs to be solved
+     * @param row - row algorithm currently working on
+     * @param col - column algorithm currently working on
+     * @return true if the whole board had been solved or number placed correctly
+     * and false if there is no possible solution for this number placement
+     */
     private boolean fill(SudokuBoard board, int row, int col) {
 
         if (col == 9) {
@@ -96,6 +118,11 @@ public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
         }
     }
 
+    /**
+     * Cloning BacktrackingSolver object
+     * @return deep copy of the current object
+     * @throws CloningException if the cloning was not possible
+     */
     @Override
     public BacktrackingSudokuSolver clone() throws CloningException {
         try {

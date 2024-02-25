@@ -99,6 +99,10 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
     }
 
+    /**
+     * If there is no such tables in the database - creates ones
+     * @throws DatabaseException if there has been an issue with creating the tables and accessing the database
+     */
     private void createTableIfNotExists() throws DatabaseException {
         String createBoardsTable = "CREATE TABLE IF NOT EXISTS boards "
                 + "("

@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Yehor Kovalenko and Andrei Pivavarau
+ * Copyright 2023  Yehor Kovalenko
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
  *    You may obtain a copy of the License at
@@ -25,8 +25,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//di - https://en.wikipedia.org/wiki/Dependency_injection
-//Source of inspiration - https://jeffe.cs.illinois.edu/teaching/algorithms/book/02-backtracking.pdf
+/**
+ * SudokuBoard class - main class, represents the SudokuBoard 9x9
+ */
 public class SudokuBoard implements Serializable, Cloneable, Prototype {
     private static final Logger logger = LogManager.getLogger();
     private final SudokuField[][] board = new SudokuField[9][9];
@@ -34,6 +35,10 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
 
     private final SudokuSolver solver;
 
+    /**
+     * Dependency injection design pattern for adding the solver to the SudokuBoard class
+     * @param solver - concrete implementation of the abstract Solver interface
+     */
     public SudokuBoard(SudokuSolver solver) {
         this.solver = solver;
 
@@ -44,7 +49,11 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
         }
     }
 
-    private boolean checkBoard() {
+    /**
+     * Checks if the Sudoku was solved according to the rules, namely no duplicates in any row, column or box 3x3
+     * @return true if the Sudoku is valid and false otherwise
+     */
+    public boolean checkBoard() {
         for (int i = 0; i <= 6; i += 3) {
             for (int j = 0; j <= 6; j += 3)  {
                 if (!this.getBox(i, j).verify()) {
@@ -61,27 +70,42 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
         return true;
     }
 
-    //filling in the number on the sudoku board according to the sudoku's rules using backtracking algorithm
-
-
+    /**
+     * Solves the SudokuBoard using solve method
+     * from the concrete implementation of the Solver abstract interface
+     */
     public void solveGame() {
         this.solver.solve(this);
         logger.info("SudokuBoard has been successfully solved");
     }
 
+    /**
+     * Getter for the specified number on the board
+     * @param row - index of the row of the board
+     * @param col - index of the column of the board
+     * @return the number at the specified location
+     */
     public int get(int row, int col) {
         return this.board[row][col].getFieldValue();
     }
 
+    /**
+     * Setter for the specified number on the board
+     * @param row - index of the row of the board
+     * @param col - index of the column of the board
+     * @param value - value to be set
+     */
     public void set(int row, int col, int value) {
         int oldValue = this.board[row][col].getFieldValue();
         this.board[row][col].setFieldValue(value);
         notifyListeners(oldValue, this.board[row][col].getFieldValue(), row, col);
-        if (!this.checkBoard()) {
-            return;
-        }
     }
 
+    /**
+     * Getter for the specified row of the Sudoku
+     * @param y - index of the row to be returned
+     * @return - the SudokuRow object
+     */
     public SudokuRow getRow(int y) {
         SudokuRow row = new SudokuRow();
         for (int i = 0; i < 9; i++) {
@@ -90,6 +114,11 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
         return row;
     }
 
+    /**
+     * Getter for the specified column of the Sudoku
+     * @param col - index of the column to be returned
+     * @return - the SudokuColumn object
+     */
     public SudokuColumn getColumn(int col) {
         SudokuColumn column = new SudokuColumn();
         for (int i = 0; i < 9; i++) {
@@ -98,6 +127,12 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
         return column;
     }
 
+    /**
+     * Getter for the specified box of the Sudoku
+     * @param row - index of the row to be returned
+     * @param col - index of the column to be returned
+     * @return - the SudokuBox object
+     */
     public SudokuBox getBox(int row, int col) {
         SudokuBox box = new SudokuBox();
         int index = 0;
@@ -137,6 +172,10 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
         return new ToStringBuilder(this).append("board", board).append("solver", solver).toString();
     }
 
+    /**
+     * @return Deep copy of the SudokuBoard object
+     * @throws CloningException if there was in issue with cloning
+     */
     @Override
     public SudokuBoard clone() throws CloningException {
         try {
@@ -154,14 +193,29 @@ public class SudokuBoard implements Serializable, Cloneable, Prototype {
         }
     }
 
+    /**
+     * Adds listener on the SudokuField object
+     * @param listener - SudokuBoardListener's concrete implementation
+     */
     public void addListener(SudokuBoardListener listener) {
         this.listeners.add(listener);
     }
 
+    /**
+     * Removes listener from the SudokuField object
+     * @param listener - SudokuBoardListener's concrete implementation
+     */
     public void removeListener(SudokuBoardListener listener) {
         this.listeners.remove(listener);
     }
 
+    /**
+     * Notifies all the listeners added to the SudokuFields
+     * @param oldValue - oldValue of the SudokuField
+     * @param newValue - new value of the SudokuField
+     * @param row - first index of the SudokuField
+     * @param col - second index of the SudokuField
+     */
     public void notifyListeners(int oldValue, int newValue, int row, int col) {
         for (SudokuBoardListener listener : this.listeners) {
             listener.changed(null, oldValue, newValue, row, col);
