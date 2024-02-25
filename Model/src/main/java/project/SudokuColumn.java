@@ -13,6 +13,9 @@
 
 package project;
 
+/**
+ * Represents the column that the SudokuBoard consists of
+ */
 public class SudokuColumn extends SudokuSubpart {
 
     @Override

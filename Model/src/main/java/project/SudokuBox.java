@@ -13,6 +13,9 @@
 
 package project;
 
+/**
+ * Represents the box 3x3 that the SudokuBoard consists of
+ */
 public class SudokuBox extends SudokuSubpart {
     @Override
     public SudokuBox clone() {

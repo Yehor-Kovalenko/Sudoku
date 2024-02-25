@@ -15,6 +15,9 @@ package project;
 
 import exceptions.CloningException;
 
+/**
+ * Abstract interace SudokuSolver for creating the solvrs for the SudokuBoard objects
+ */
 public interface SudokuSolver extends Cloneable {
     void solve(SudokuBoard board);
 

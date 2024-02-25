@@ -13,6 +13,9 @@
 
 package project;
 
+/**
+ * Represents the row that the SudokuBoard consists of
+ */
 public class SudokuRow extends SudokuSubpart {
     @Override
     public SudokuRow clone() {

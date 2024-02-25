@@ -25,6 +25,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 
+/**
+ * Represents the field that the SudokuBoard consists of
+ */
 public class SudokuField implements Serializable, Comparable<SudokuField>, Cloneable {
     private int value = 0;
     private static final Logger logger = LogManager.getLogger();
@@ -54,10 +57,18 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
         return new ToStringBuilder(this).append("value", value).toString();
     }
 
+    /**
+     * Getter for the value of the SudokuField object
+     * @return number from 0 to 9
+     */
     public int getFieldValue() {
         return this.value;
     }
 
+    /**
+     * Setter for the value of the SudokuField object
+     * @param value - new value to be set, should be between 0 and 9
+     */
     public void setFieldValue(int value) {
         if (value >= 0 && value <= 9) {
             this.value = value;

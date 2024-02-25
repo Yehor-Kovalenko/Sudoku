@@ -21,6 +21,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Abstract class representing any part of the SudokuBoard like row, column or the box
+ */
 public abstract class SudokuSubpart implements Serializable, Cloneable {
 
     private final List<SudokuField> group = Arrays.asList(new SudokuField[9]);
@@ -29,6 +32,10 @@ public abstract class SudokuSubpart implements Serializable, Cloneable {
         this.group.replaceAll(x -> new SudokuField());
     }
 
+    /**
+     * Verify if the subpart is valid
+     * @return true if it is valid and false otherwise
+     */
     public boolean verify() {
         for (int i = 0; i < group.size(); i++) {
             for (int j = i + 1; j < group.size(); j++) {
@@ -41,12 +48,22 @@ public abstract class SudokuSubpart implements Serializable, Cloneable {
 
     }
 
+    /**
+     * Setter for the value of the subpart
+     * @param i - position of the field to be changed
+     * @param value - new value to be set in range [0, 9]
+     */
     public void set(int i, int value) {
         SudokuField field = new SudokuField();
         field.setFieldValue(value);
         this.group.set(i, field);
     }
 
+    /**
+     * Getter for the value from the subpart
+     * @param i - position of the field in the subpart
+     * @return number from 0 to 9
+     */
     public int get(int i) {
         return group.get(i).getFieldValue();
     }
